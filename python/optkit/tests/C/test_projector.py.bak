@@ -170,7 +170,7 @@ class IndirectProjectorTestCase(OptkitCOperatorTestCase):
 			# self.op_keys
 			for op_ in self.op_keys:
 				if self.VERBOSE_TEST:
-					print("test indirect projector alloc, operator type:", op_)
+					print "test indirect projector alloc, operator type:", op_
 				A_, A, o = self.register_operator(lib, op_)
 
 				p = lib.indirect_projector(None, None)
@@ -199,7 +199,7 @@ class IndirectProjectorTestCase(OptkitCOperatorTestCase):
 			# test projection for each operator type defined in self.op_keys
 			for op_ in self.op_keys:
 				if self.VERBOSE_TEST:
-					print("indirect projection, operator type:", op_)
+					print "indirect projection, operator type:", op_
 
 				hdl = self.register_blas_handle(lib, 'hdl')
 
@@ -363,7 +363,7 @@ class GenericIndirectProjectorTestCase(OptkitCOperatorTestCase):
 			# test projection for each operator type defined in self.op_keys
 			for op_ in self.op_keys:
 				if self.VERBOSE_TEST:
-					print("test indirect projector alloc, operator type:", op_)
+					print "test indirect projector alloc, operator type:", op_
 				_, A, o = self.register_operator(lib, op_)
 
 				p = lib.indirect_projector_generic_alloc(o)
@@ -395,7 +395,7 @@ class GenericIndirectProjectorTestCase(OptkitCOperatorTestCase):
 			# test projection for each operator type defined in self.op_keys
 			for op_ in self.op_keys:
 				if self.VERBOSE_TEST:
-					print("indirect projection, operator type:", op_)
+					print "indirect projection, operator type:", op_
 
 				hdl = self.register_blas_handle(lib, 'hdl')
 

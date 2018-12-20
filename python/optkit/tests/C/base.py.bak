@@ -51,10 +51,10 @@ class OptkitCTestCase(OptkitTestCase):
 			self.free_var(name)
 
 	def free_all_vars(self):
-		for i in range(len(self.var_stack)):
+		for i in xrange(len(self.var_stack)):
 			varname = self.var_stack.pop() # free in reverse of order added
 			if varname in self.managed_vars:
-				print('releasing unfreed C variable {}'.format(varname))
+				print 'releasing unfreed C variable {}'.format(varname)
 			self.free_var(varname)
 
 	# register device_reset() call so GPU is reset when tests error

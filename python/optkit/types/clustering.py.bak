@@ -44,9 +44,9 @@ def regcluster(sample_dims, full_dims):
 
 	grid = zeros((xceil, yceil, zceil), dtype=int)
 
-	for k in range(zceil):
-		for j in range(yceil):
-			for i in range(xceil):
+	for k in xrange(zceil):
+		for j in xrange(yceil):
+			for i in xrange(xceil):
 				grid[i, j, k] = (i / nx) * 1
 				grid[i, j, k] += (j / ny) * x_blocks
 				grid[i, j, k] += (k / nz) * y_blocks * x_blocks
@@ -65,7 +65,7 @@ def geometric_cluster(dimx, dimy, dimz, downsampling_factor, perm_geom2working,
 
 	assignment_blocks = []
 
-	for b in range(block_sizes):
+	for b in xrange(block_sizes):
 		size_b = block_sizes[b]
 		assignments_b = UpsamplingVector(
 				indices=assignments[entry_offset : entry_offset + size_b])
@@ -396,7 +396,7 @@ class ClusteringTypes(object):
 				if settings_blocks is None:
 					settings_blocks = [ClusteringSettings(A.shape[0]) for A in A_blocks]
 
-				for b in range(len(A_blocks)):
+				for b in xrange(len(A_blocks)):
 					A = A_blocks[b]
 					C = C_blocks[b]
 					assignments = assignment_blocks[b]
@@ -416,7 +416,7 @@ class ClusteringTypes(object):
 								 settings_blocks=None):
 
 				C_blocks = []
-				for b in range(len(A_blocks)):
+				for b in xrange(len(A_blocks)):
 					size1 = assignment_blocks[b].max() + 1
 					size2 = A_blocks[b].shape[1]
 					C_blocks.append(zeros((size1, size2), dtype=lib.pyfloat))

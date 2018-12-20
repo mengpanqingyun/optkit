@@ -26,7 +26,7 @@ class ClusteringBindingsTestCase(OptkitTestCase):
 
 		# construct A_test as a noisy upsampled version of C
 		percent_noise = 0.05
-		for i in range(self.shape[0]):
+		for i in xrange(self.shape[0]):
 			self.A_test[i, :] *= percent_noise
 			self.A_test[i, :] += self.C_test[i % self.k, :]
 
@@ -78,7 +78,7 @@ class ClusteringBindingsTestCase(OptkitTestCase):
 
 		# choose a non-zero assignment
 		val = 0
-		for i in range(m):
+		for i in xrange(m):
 			if u.indices[i] > 0:
 				val = u.indices[i]
 				break
@@ -89,7 +89,7 @@ class ClusteringBindingsTestCase(OptkitTestCase):
 		oldmax = u.max_assignment + 1
 
 		# swap all instances of this non-zero assignment to 0
-		for i in range(m):
+		for i in xrange(m):
 			if u.indices[i] == val:
 				u.indices[i] = 0
 
@@ -225,7 +225,7 @@ class ClusteringBindingsTestCase(OptkitTestCase):
 		self.assertTrue( len(a2c) == b )
 		self.assertTrue( len(counts) == b )
 
-		for i in range(b):
+		for i in xrange(b):
 			self.assertTrue( sum(counts[i]) == self.shape[0] )
 
 	def test_blockwise_kmeans(self):
@@ -242,7 +242,7 @@ class ClusteringBindingsTestCase(OptkitTestCase):
 		self.assertTrue( len(a2c) == b )
 		self.assertTrue( len(counts) == b )
 
-		for i in range(b):
+		for i in xrange(b):
 			self.assertTrue( sum(counts[i]) == self.shape[0] )
 
 

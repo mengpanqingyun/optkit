@@ -25,7 +25,7 @@ class ClusterLibsTestCase(OptkitCTestCase):
 
 		# construct A_test as a noisy upsampled version of C
 		percent_noise = 0.05
-		for i in range(self.shape[0]):
+		for i in xrange(self.shape[0]):
 			self.A_test[i, :] *= percent_noise
 			self.A_test[i, :] += self.C_test[i % self.k, :]
 
@@ -86,7 +86,7 @@ class ClusterLibsTestCase(OptkitCTestCase):
 			c_squared[row] = c.dot(c)
 
 		D = - 2 * C.dot(A.T)
-		for i in range(m):
+		for i in xrange(m):
 			D[:, i] += c_squared
 
 		indmin = D.argmin(0)
@@ -97,7 +97,7 @@ class ClusterLibsTestCase(OptkitCTestCase):
 			reassigned = sum(a2c != indmin)
 			a2c[:] = indmin[:]
 		else:
-			for i in range(m):
+			for i in xrange(m):
 				if a2c[i] == indmin[i]:
 					continue
 
@@ -183,7 +183,7 @@ class ClusterLibsTestCase(OptkitCTestCase):
 			self.assertCall( lib.indvector_memcpy_va(u.vec, u_ptr, 1) )
 
 			# expect error
-			print('\nexpect dimension mismatch error:')
+			print '\nexpect dimension mismatch error:'
 			err = lib.upsamplingvec_check_bounds(u)
 			self.assertEqual( err, lib.enums.OPTKIT_ERROR_DIMENSION_MISMATCH )
 
@@ -206,7 +206,7 @@ class ClusterLibsTestCase(OptkitCTestCase):
 			self.assertCall( lib.upsamplingvec_check_bounds(u) )
 
 			# incorrect size
-			print('\nexpect dimension mismatch error:')
+			print '\nexpect dimension mismatch error:'
 			u.size2 = k / 2
 			err = lib.upsamplingvec_check_bounds(u)
 			self.assertEqual( err, lib.enums.OPTKIT_ERROR_DIMENSION_MISMATCH )
@@ -370,17 +370,17 @@ class ClusterLibsTestCase(OptkitCTestCase):
 			self.assertVecEqual( nvec_py, result_py, ATOLN, RTOL)
 
 			# reject: dimension mismatch
-			print('\nexpect dimension mismatch error:')
+			print '\nexpect dimension mismatch error:'
 			err = lib.upsamplingvec_mul_matrix(
 					hdl, N, N, N, alpha, u, C, beta, B)
 			self.assertEqual( err, lib.enums.OPTKIT_ERROR_DIMENSION_MISMATCH )
-			print('\nexpect dimension mismatch error:')
+			print '\nexpect dimension mismatch error:'
 			err = lib.upsamplingvec_mul_matrix(
 					hdl, T, N, N, alpha, u, A, beta, D)
 			self.assertEqual( err, lib.enums.OPTKIT_ERROR_DIMENSION_MISMATCH )
 
 			# reject: unallocated
-			print('\nexpect unallocated error:')
+			print '\nexpect unallocated error:'
 			err = lib.upsamplingvec_mul_matrix(
 					hdl, T, N, N, alpha, u, E, beta, C)
 			self.assertEqual( err, lib.enums.OPTKIT_ERROR_UNALLOCATED )

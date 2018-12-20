@@ -117,9 +117,9 @@ class OptkitCPogsTestCase(OptkitCTestCase):
 		f, f_py, f_ptr = self.register_fnvector(lib, m, name1)
 		g, g_py, g_ptr = self.register_fnvector(lib, n, name2)
 
-		for i in range(m):
+		for i in xrange(m):
 			f_py[i] = lib.function(lib.function_enums.Abs, 1, 1, 1, 0, 0)
-		for j in range(n):
+		for j in xrange(n):
 			g_py[j] = lib.function(lib.function_enums.IndGe0, 1, 0, 1, 0, 0)
 
 		self.assertCall( lib.function_vector_memcpy_va(f, f_ptr) )
@@ -264,11 +264,11 @@ class OptkitCPogsTestCase(OptkitCTestCase):
 
 		f_list = [lib.function(*f_) for f_ in f_py]
 		g_list = [lib.function(*f_) for f_ in g_py]
-		for i in range(len(f_py)):
+		for i in xrange(len(f_py)):
 			f_list[i].a *= local_vars.d[i]
 			f_list[i].d *= local_vars.d[i]
 			f_list[i].e *= local_vars.d[i]
-		for j in range(len(g_py)):
+		for j in xrange(len(g_py)):
 			g_list[j].a /= local_vars.e[j]
 			g_list[j].d /= local_vars.e[j]
 			g_list[j].e /= local_vars.e[j]
@@ -425,7 +425,7 @@ class OptkitCPogsTestCase(OptkitCTestCase):
 		settings.verbose = 1
 
 		# COLD START
-		print("\ncold")
+		print "\ncold"
 		settings.warmstart = 0
 		settings.maxiter = MAXITER_DEFAULT
 		self.assertCall( lib.pogs_solve(solver, f, g, settings, info,
@@ -434,14 +434,14 @@ class OptkitCPogsTestCase(OptkitCTestCase):
 		self.assertTrue( info.converged or info.k >= settings.maxiter )
 
 		# REPEAT
-		print("\nrepeat")
+		print "\nrepeat"
 		self.assertCall( lib.pogs_solve(solver, f, g, settings, info,
 						 output.ptr) )
 		self.assertEqual( info.err, 0 )
 		self.assertTrue( info.converged or info.k >= settings.maxiter )
 
 		# RESUME
-		print("\nresume")
+		print "\nresume"
 		settings.resume = 1
 		settings.rho = info.rho
 		self.assertCall( lib.pogs_solve(solver, f, g, settings, info,
@@ -450,7 +450,7 @@ class OptkitCPogsTestCase(OptkitCTestCase):
 		self.assertTrue( info.converged or info.k >= settings.maxiter )
 
 		# WARM START: x0
-		print("\nwarm start x0")
+		print "\nwarm start x0"
 		settings.resume = 0
 		settings.rho = 1
 		settings.x0 = output.x.ctypes.data_as(lib.ok_float_p)
@@ -461,7 +461,7 @@ class OptkitCPogsTestCase(OptkitCTestCase):
 		self.assertTrue( info.converged or info.k >= settings.maxiter )
 
 		# WARM START: x0, rho
-		print("\nwarm start x0, rho")
+		print "\nwarm start x0, rho"
 		settings.resume = 0
 		settings.rho = info.rho
 		settings.x0 = output.x.ctypes.data_as(lib.ok_float_p)
@@ -472,7 +472,7 @@ class OptkitCPogsTestCase(OptkitCTestCase):
 		self.assertTrue( info.converged or info.k >= settings.maxiter )
 
 		# WARM START: x0, nu0
-		print("\nwarm start x0, nu0")
+		print "\nwarm start x0, nu0"
 		settings.resume = 0
 		settings.rho = 1
 		settings.x0 = output.x.ctypes.data_as(lib.ok_float_p)
@@ -484,7 +484,7 @@ class OptkitCPogsTestCase(OptkitCTestCase):
 		self.assertTrue( info.converged or info.k >= settings.maxiter )
 
 		# WARM START: x0, nu0
-		print("\nwarm start x0, nu0, rho")
+		print "\nwarm start x0, nu0, rho"
 		settings.resume = 0
 		settings.rho = info.rho
 		settings.x0 = output.x.ctypes.data_as(lib.ok_float_p)

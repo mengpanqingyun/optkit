@@ -25,7 +25,7 @@ class PogsBindingsTestCase(OptkitTestCase):
 		f = PogsObjective(m, h='Abs', b=1, d=2, e=3)
 		h, a, b, c, d, e = f.arrays
 
-		for i in range(m):
+		for i in xrange(m):
 			self.assertEqual(h[i], f.enums.dict['Abs'])
 			self.assertAlmostEqual(a[i], 1)
 			self.assertAlmostEqual(b[i], 1)
@@ -35,20 +35,20 @@ class PogsBindingsTestCase(OptkitTestCase):
 
 		# set block by scalar
 		f.set(end=m/2, b=0.5)
-		for i in range(m / 2):
+		for i in xrange(m / 2):
 			self.assertEqual(f.b[i], 0.5)
 
 		# set block by vector
 		c = np.random.rand(m/4)
 		f.set(start=m/2, end=m/2+m/4, c=c)
-		for i, idx in enumerate(range(m/2, m/2 + m/4)):
+		for i, idx in enumerate(xrange(m/2, m/2 + m/4)):
 			self.assertAlmostEqual(f.c[idx], c[i])
 
 		# set indices by scalar
 		indices = []
 		threshold = lambda i: i if np.random.rand() > 0.75 else False
 		while len(indices) == 0:
-			indices = [_f for _f in map(threshold, range(m)) if _f]
+			indices = filter(None, map(threshold, xrange(m)))
 		f.set(range=indices, e=0.1)
 		for idx in indices:
 			self.assertAlmostEqual(f.e[idx], 0.1)

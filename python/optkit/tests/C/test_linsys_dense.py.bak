@@ -87,7 +87,7 @@ class DenseLibsTestCase(OptkitCTestCase):
 
 			self.assertNotEqual( version, '0.0.0' )
 			if self.VERBOSE_TEST:
-				print(("denselib version", version))
+				print("denselib version", version)
 
 class DenseBLASTestCase(OptkitCTestCase):
 	@classmethod
@@ -304,12 +304,12 @@ class DenseBLASTestCase(OptkitCTestCase):
 		# normalize L so inversion doesn't blow up
 		L_test /= np.linalg.norm(L_test)
 
-		for i in range(n):
+		for i in xrange(n):
 			# diagonal entries ~ 1 to keep condition number reasonable
 			L_test[i, i] /= 10**np.log(n)
 			L_test[i, i] += 1
 			# upper triangle = 0
-			for j in range(n):
+			for j in xrange(n):
 				if j > i:
 					L_test[i, j] *= 0
 
@@ -385,8 +385,8 @@ class DenseBLASTestCase(OptkitCTestCase):
 			alpha = np.random.rand()
 			beta = np.random.rand()
 			pyresult = np.zeros(n)
-			for d in range(diags):
-				for j in range(n - d):
+			for d in xrange(diags):
+				for j in xrange(n - d):
 					if d > 0:
 						pyresult[d + j] += s_test[d + diags * j] * x_rand[j]
 					pyresult[j] += s_test[d + diags * j] * x_rand[d + j]
@@ -528,8 +528,8 @@ class DenseBLASTestCase(OptkitCTestCase):
 				self.assertCall( lib.blas_syrk(hdl, lib.enums.CblasLower,
 							  	 lib.enums.CblasTrans, alpha, A, beta, B) )
 				self.assertCall( lib.matrix_memcpy_am(B_ptr, B, order) )
-				for i in range(n):
-					for j in range(n):
+				for i in xrange(n):
+					for j in xrange(n):
 						if j > i:
 							pyresult[i, j] *= 0
 							B_py[i, j] *= 0
@@ -544,10 +544,10 @@ class DenseBLASTestCase(OptkitCTestCase):
 		# make square, invertible L
 		L_test = np.random.rand(n, n)
 
-		for i in range(n):
+		for i in xrange(n):
 			L_test[i, i] /= 10**np.log(n)
 			L_test[i, i] += 1
-			for j in range(n):
+			for j in xrange(n):
 				if j > i:
 					L_test[i, j]*= 0
 
@@ -615,12 +615,12 @@ class DenseLinalgTestCase(OptkitCTestCase):
 		# build decently conditioned symmetric matrix
 		AA_test = self.A_test.T.dot(self.A_test)[:mindim, :mindim]
 		AA_test /= np.linalg.norm(AA_test) * mindim**0.5
-		for i in range(mindim):
+		for i in xrange(mindim):
 			# diagonal entries ~ 1 to keep condition number reasonable
 			AA_test[i, i] /= 10**np.log(mindim)
 			AA_test[i, i] += 1
 			# upper triangle = 0
-			for j in range(mindim):
+			for j in xrange(mindim):
 				if j > i:
 					AA_test[i, j] *= 0
 		AA_test += AA_test.T
@@ -651,8 +651,8 @@ class DenseLinalgTestCase(OptkitCTestCase):
 				# cholesky factorization
 				self.assertCall( lib.linalg_cholesky_decomp(hdl, L) )
 				self.assertCall( lib.matrix_memcpy_am(L_ptr, L, order) )
-				for i in range(mindim):
-					for j in range(mindim):
+				for i in xrange(mindim):
+					for j in xrange(mindim):
 						if j > i:
 							L_py[i, j] *= 0
 
@@ -698,8 +698,8 @@ class DenseLinalgTestCase(OptkitCTestCase):
 				A_py += self.A_test
 				self.assertCall( lib.matrix_memcpy_ma(A, A_ptr, order) )
 
-				py_rows = [A_py[i, :].dot(A_py[i, :]) for i in range(m)]
-				py_cols = [A_py[:, j].dot(A_py[:, j]) for j in range(n)]
+				py_rows = [A_py[i, :].dot(A_py[i, :]) for i in xrange(m)]
+				py_cols = [A_py[:, j].dot(A_py[:, j]) for j in xrange(n)]
 
 				# C: calculate row squares
 				self.assertCall( lib.linalg_matrix_row_squares(
@@ -867,7 +867,7 @@ class DenseLinalgTestCase(OptkitCTestCase):
 										lib.enums.CblasLeft) )
 				self.assertCall( lib.indvector_memcpy_av(inds_ptr, idx, 1) )
 				self.free_var('idx')
-				calcmin = np.array([A_py[inds[i], i] for i in range(n)])
+				calcmin = np.array([A_py[inds[i], i] for i in xrange(n)])
 				colmin = np.min(A_py, 0)
 				self.assertVecEqual( calcmin, colmin, ATOLN, RTOL )
 
@@ -877,7 +877,7 @@ class DenseLinalgTestCase(OptkitCTestCase):
 										lib.enums.CblasRight) )
 				self.assertCall( lib.indvector_memcpy_av(inds_ptr, idx, 1) )
 				self.free_var('idx')
-				calcmin = np.array([A_py[i, inds[i]] for i in range(m)])
+				calcmin = np.array([A_py[i, inds[i]] for i in xrange(m)])
 				rowmin = np.min(A_py, 1)
 				self.assertVecEqual( calcmin, rowmin, ATOLM, RTOL )
 

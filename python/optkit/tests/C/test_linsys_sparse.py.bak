@@ -64,7 +64,7 @@ class SparseLibsTestCase(OptkitCTestCase):
 
 			self.assertNotEqual( version, '0.0.0' )
 			if self.VERBOSE_TEST:
-				print(("sparselib version", sversion))
+				print("sparselib version", sversion)
 
 class SparseMatrixTestCase(OptkitCTestCase):
 	@classmethod
@@ -108,10 +108,10 @@ class SparseMatrixTestCase(OptkitCTestCase):
 			self.assertEqual( A.ptrlen, m + 1 )
 			self.assertEqual( A.order, lib.enums.CblasRowMajor )
 			if not gpu:
-				list(map(lambda i : self.assertEqual(A.val[i], 0), range(2 * nnz)))
-				list(map(lambda i : self.assertEqual(A.ind[i], 0), range(2 * nnz)))
-				list(map(lambda i : self.assertEqual(A.ptr[i], 0),
-					range(2 + m + n)))
+				map(lambda i : self.assertEqual(A.val[i], 0), xrange(2 * nnz))
+				map(lambda i : self.assertEqual(A.ind[i], 0), xrange(2 * nnz))
+				map(lambda i : self.assertEqual(A.ptr[i], 0),
+					xrange(2 + m + n))
 
 			self.assertCall( lib.sp_matrix_free(A) )
 			self.assertEqual( A.size2, 0 )
@@ -127,10 +127,10 @@ class SparseMatrixTestCase(OptkitCTestCase):
 			self.assertEqual( A.ptrlen, n + 1 )
 			self.assertEqual( A.order, lib.enums.CblasColMajor )
 			if not gpu:
-				list(map(lambda i : self.assertEqual(A.val[i], 0), range(2 * nnz)))
-				list(map(lambda i : self.assertEqual(A.ind[i], 0), range(2 * nnz)))
-				list(map(lambda i : self.assertEqual(A.ptr[i], 0),
-					range(2 + m + n)))
+				map(lambda i : self.assertEqual(A.val[i], 0), xrange(2 * nnz))
+				map(lambda i : self.assertEqual(A.ind[i], 0), xrange(2 * nnz))
+				map(lambda i : self.assertEqual(A.ptr[i], 0),
+					xrange(2 + m + n))
 
 			self.free_var('A')
 			self.assertEqual( A.size1, 0 )

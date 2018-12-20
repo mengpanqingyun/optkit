@@ -54,7 +54,7 @@ class ProxLibsTestCase(OptkitTestCase):
 
 			self.assertNotEqual(version, '0.0.0')
 			if self.VERBOSE_TEST:
-				print(("proxlib version", version))
+				print("proxlib version", version)
 
 class ProxTestCase(OptkitCTestCase):
 	@classmethod
@@ -128,11 +128,11 @@ class ProxTestCase(OptkitCTestCase):
 			dlast = 0.
 			elast = 0.
 
-			for hkey, hval in list(lib.function_enums.dict.items()):
+			for hkey, hval in lib.function_enums.dict.items():
 				if self.VERBOSE_TEST:
-					print(hkey)
+					print hkey
 
-				for i in range(m):
+				for i in xrange(m):
 					f_py[i] = lib.function(hval, a, b, c, d, e)
 
 				f_list = [lib.function(*f_) for f_ in f_py]
@@ -167,7 +167,7 @@ class ProxTestCase(OptkitCTestCase):
 				self.assertVecEqual( 0, fe, ATOLM, 0 )
 
 				# memcpy fa
-				for i in range(m):
+				for i in xrange(m):
 					f_py[i] = lib.function(hval, a, b, c, d, e)
 
 				self.assertCall( lib.function_vector_memcpy_va(f, f_ptr) )
@@ -229,7 +229,7 @@ class ProxTestCase(OptkitCTestCase):
 			v_py = np.zeros(m).astype(lib.pyfloat)
 			v_ptr = v_py.ctypes.data_as(lib.ok_float_p)
 
-			for i in range(m):
+			for i in xrange(m):
 				f_py[i] = lib.function(hval, a[i], b[i], c[i], d[i], e[i])
 			self.assertCall( lib.function_vector_memcpy_va(f, f_ptr) )
 			v_py[:] = np.random.rand(m)
@@ -238,7 +238,7 @@ class ProxTestCase(OptkitCTestCase):
 			# mul
 			self.assertCall( lib.function_vector_mul(f, v) )
 			self.assertCall( lib.function_vector_memcpy_av(f_ptr, f) )
-			for i in range(m):
+			for i in xrange(m):
 				a[i] *= v_py[i]
 				d[i] *= v_py[i]
 				e[i] *= v_py[i]
@@ -258,7 +258,7 @@ class ProxTestCase(OptkitCTestCase):
 			# div
 			self.assertCall( lib.function_vector_div(f, v) )
 			self.assertCall( lib.function_vector_memcpy_av(f_ptr, f) )
-			for i in range(m):
+			for i in xrange(m):
 				a[i] /= v_py[i]
 				d[i] /= v_py[i]
 				e[i] /= v_py[i]
@@ -308,16 +308,16 @@ class ProxTestCase(OptkitCTestCase):
 			x_py += x_rand
 			self.assertCall( lib.vector_memcpy_va(x, x_ptr, 1) )
 
-			for hkey, hval in list(lib.function_enums.dict.items()):
+			for hkey, hval in lib.function_enums.dict.items():
 				if self.VERBOSE_TEST:
-					print(hkey)
+					print hkey
 
-				print(hkey)
+				print hkey
 				# avoid domain errors with randomly generated data
 				if 'Log' in hkey or 'Exp' in hkey or 'Entr' in hkey:
 					continue
 
-				for i in range(m):
+				for i in xrange(m):
 					f_py[i] = lib.function(hval, a[i], b[i], c[i], d[i], e[i])
 				self.assertCall( lib.function_vector_memcpy_va(f, f_ptr) )
 

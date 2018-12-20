@@ -64,11 +64,11 @@ class PogsDenseDirectTypes(PogsTypes):
 
 
 			def __update_function_vectors(self, f, g):
-				for i in range(f.size):
+				for i in xrange(f.size):
 					self.__f[i] = lib.function(f.h[i], f.a[i], f.b[i],
 												   f.c[i], f.d[i], f.e[i])
 
-				for j in range(g.size):
+				for j in xrange(g.size):
 					self.__g[j] = lib.function(g.h[j], g.a[j], g.b[j],
 												   g.c[j], g.d[j], g.e[j])
 

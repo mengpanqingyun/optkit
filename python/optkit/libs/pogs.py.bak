@@ -219,7 +219,7 @@ def attach_pogs_ctypes(lib, single_precision=False):
 	if not 'function_vector_p' in lib.__dict__:
 		attach_prox_ctypes(lib, single_precision)
 	if not 'pogs_settings_p' in lib.__dict__:
-		print("HERE")
+		print "HERE"
 		attach_pogs_common_ctypes(lib, single_precision)
 
 	ok_float = lib.ok_float

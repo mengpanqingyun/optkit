@@ -39,7 +39,7 @@ class VectorTestCase(OptkitCTestCase):
 			self.assertEqual( v.stride, 1 )
 
 			if not gpu:
-				for i in range(v.size):
+				for i in xrange(v.size):
 					self.assertEqual( v.data[i], 0 )
 
 			self.free_var('v')
@@ -67,7 +67,7 @@ class VectorTestCase(OptkitCTestCase):
 
 			# memcpy_av
 			self.assertCall( lib.vector_memcpy_av(v_ptr, v, 1) )
-			for i in range(len_v):
+			for i in xrange(len_v):
 				self.assertEqual(v_py[i], set_val)
 
 			# memcpy_va
@@ -120,7 +120,7 @@ class VectorTestCase(OptkitCTestCase):
 			v_sub_ptr = v_sub_py.ctypes.data_as(lib.ok_float_p)
 			self.assertCall( lib.vector_memcpy_av(v_ptr, v, 1) )
 			self.assertCall( lib.vector_memcpy_av(v_sub_ptr, v_sub, 1) )
-			for i in range(len_sub):
+			for i in xrange(len_sub):
 				self.assertEqual( v_sub_py[i], v_py[i + offset_sub] )
 
 			self.free_var('v')

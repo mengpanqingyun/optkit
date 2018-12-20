@@ -49,7 +49,7 @@ class MatrixTestCase(OptkitCTestCase):
 					self.assertEqual( A.ld, m )
 				self.assertEqual( A.order, order )
 				if not gpu:
-					for i in range(m * n):
+					for i in xrange(m * n):
 						self.assertEqual( A.data[i], 0 )
 				# free
 				self.free_var('A')
@@ -76,8 +76,8 @@ class MatrixTestCase(OptkitCTestCase):
 				# set A_py to A_rand. overwrite A_py with zeros from A
 				A_py += A_rand
 				self.assertCall( lib.matrix_memcpy_am(A_ptr, A, order) )
-				for i in range(m):
-					for j in range(n):
+				for i in xrange(m):
+					for j in xrange(n):
 						self.assertEqual( A_py[i, j], 0)
 
 				# memcpy_ma
@@ -210,7 +210,7 @@ class MatrixTestCase(OptkitCTestCase):
 				# scale_left: A = diag(d) * A
 				d, d_py, d_ptr = self.register_vector(lib, m, 'd')
 				d_py[:] = np.random.rand(m)
-				for i in range(m):
+				for i in xrange(m):
 					A_rand[i, :] *= d_py[i]
 				self.assertCall( lib.vector_memcpy_va(d, d_ptr, 1) )
 				self.assertCall( lib.matrix_scale_left(A, d) )
@@ -220,7 +220,7 @@ class MatrixTestCase(OptkitCTestCase):
 				# scale_right: A = A * diag(e)
 				e, e_py, e_ptr = self.register_vector(lib, n, 'e')
 				e_py[:] = np.random.rand(n)
-				for j in range(n):
+				for j in xrange(n):
 					A_rand[:, j] *= e_py[j]
 				self.assertCall( lib.vector_memcpy_va(e, e_ptr, 1) )
 				self.assertCall( lib.matrix_scale_right(A, e) )

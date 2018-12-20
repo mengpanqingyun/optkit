@@ -55,7 +55,7 @@ def set_backend(gpu=False, double=True):
 	ClusteringSettings = clustering_types.ClusteringSettings
 	Clustering = clustering_types.Clustering
 
-	print("optkit backend set to {}".format(backend.config))
+	print "optkit backend set to {}".format(backend.config)
 
 """
 INITIALIZATION BEHAVIOR:

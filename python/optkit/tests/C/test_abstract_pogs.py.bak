@@ -516,7 +516,7 @@ class PogsAbstractTestCases(OptkitCPogsTestCase, OptkitCOperatorTestCase):
 					settings.nu0 = nu0_ptr
 					settings.warmstart = 1
 
-					print("\nwarm start variable loading test (0 iters)")
+					print "\nwarm start variable loading test (0 iters)"
 					self.assertCall( lib.pogs_solve(solver, f, g, settings,
 													info, output.ptr) )
 					self.assertEqual( info.err, 0 )

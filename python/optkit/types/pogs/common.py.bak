@@ -71,7 +71,7 @@ class PogsTypes(object):
 				if start < 0 : start = self.size + start
 				if end < 0 : end = self.size + end
 
-				r = params.pop('range', range(start,end))
+				r = params.pop('range', xrange(start,end))
 				range_length = len(r)
 
 				if  range_length == 0:
@@ -95,7 +95,7 @@ class PogsTypes(object):
 						hval = const_iterator(self.enums.validate(params['h']),
 											  range_length)
 					elif isinstance(params['h'], (list, ndarray)):
-						hval = list(map(self.enums.validate, params['h']))
+						hval = map(self.enums.validate, params['h'])
 					else:
 						raise TypeError('if specified, argument "h" must be '
 										'one of {}, {}, {} or {}'.format(

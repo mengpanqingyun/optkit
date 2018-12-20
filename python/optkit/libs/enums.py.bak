@@ -87,7 +87,7 @@ class OKFunctionEnums(object):
 		elif isinstance(h, str):
 			if not h in self.__str2fun:
 				KeyError('invalid key: {}. valid keys:\n{}\n'.format(h,
-					   list(self.__str2fun.keys())))
+					   self.__str2fun.keys()))
 				return c_uint(0).value
 			else:
 				return c_uint(self.dict[h]).value

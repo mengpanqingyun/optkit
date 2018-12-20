@@ -94,8 +94,8 @@ class OKBackend(object):
 			raise ValueError('invalid library name')
 		elif self.__dict__[name] is not None:
 			if not override:
-				print(str('\nlibrary {} already loaded; call with keyword arg '
-					  '"override"=True to bypass this check\n'.format(name)))
+				print str('\nlibrary {} already loaded; call with keyword arg '
+					  '"override"=True to bypass this check\n'.format(name))
 
 		if name == 'pogs':
 			self.pogs = self.pogs_lib_loader.get(
@@ -136,9 +136,9 @@ class OKBackend(object):
 							# single_precision=single, gpu=gpu)
 					return
 				else:
-					print(str('Libraries for configuration {} '
+					print str('Libraries for configuration {} '
 							  'not found. Trying next configuration.'.format(
-							  lib_key)))
+							  lib_key))
 
 		raise RuntimeError('No libraries found for backend.')
 
@@ -146,8 +146,8 @@ class OKBackend(object):
 			   checkdevices=None):
 
 		if self.__LIBGUARD_ON:
-			print(str('Backend cannot be changed once C objects have been '
-					  'created.\n'))
+			print str('Backend cannot be changed once C objects have been '
+					  'created.\n')
 			return
 
 		precision = '64' if double else '32'
